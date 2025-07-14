@@ -1,0 +1,150 @@
+{
+  "summary": {
+    "total_tests": 16,
+    "passed": 14,
+    "failed": 2,
+    "success_rate": 87.5
+  },
+  "results": [
+    {
+      "test": "Health Check",
+      "success": false,
+      "message": "Connection failed: ",
+      "timestamp": "2025-07-14T13:57:13.869002",
+      "details": {}
+    },
+    {
+      "test": "Subjects Endpoint",
+      "success": true,
+      "message": "Retrieved 6 subjects successfully",
+      "timestamp": "2025-07-14T13:57:13.935936",
+      "details": {
+        "subjects": [
+          "Physics Hub",
+          "Chemistry Hub",
+          "Biology Hub",
+          "Astronomy Hub",
+          "Mathematics Hub",
+          "Computer Science Hub"
+        ]
+      }
+    },
+    {
+      "test": "Questions GET (Unauthenticated)",
+      "success": true,
+      "message": "Retrieved 0 questions without auth",
+      "timestamp": "2025-07-14T13:57:13.984524",
+      "details": {}
+    },
+    {
+      "test": "Questions POST (Unauthenticated)",
+      "success": true,
+      "message": "Correctly rejected unauthenticated request",
+      "timestamp": "2025-07-14T13:57:14.725330",
+      "details": {}
+    },
+    {
+      "test": "Panelists GET",
+      "success": true,
+      "message": "Retrieved 0 panelists",
+      "timestamp": "2025-07-14T13:57:14.738287",
+      "details": {}
+    },
+    {
+      "test": "Panelists POST (Unauthenticated)",
+      "success": true,
+      "message": "Correctly rejected unauthenticated request",
+      "timestamp": "2025-07-14T13:57:14.786068",
+      "details": {}
+    },
+    {
+      "test": "Admin Members GET",
+      "success": true,
+      "message": "Retrieved 0 admin members",
+      "timestamp": "2025-07-14T13:57:14.793285",
+      "details": {}
+    },
+    {
+      "test": "Club Info GET",
+      "success": true,
+      "message": "Retrieved 1 club info entries",
+      "timestamp": "2025-07-14T13:57:14.800920",
+      "details": {}
+    },
+    {
+      "test": "Founder Info Check",
+      "success": true,
+      "message": "Founder information correctly set",
+      "timestamp": "2025-07-14T13:57:14.800949",
+      "details": {}
+    },
+    {
+      "test": "Stats Endpoint",
+      "success": true,
+      "message": "Statistics retrieved successfully",
+      "timestamp": "2025-07-14T13:57:14.852809",
+      "details": {
+        "stats": {
+          "total_users": 0,
+          "total_questions": 0,
+          "total_competitions": 0,
+          "active_users": 0
+        }
+      }
+    },
+    {
+      "test": "Leaderboard Endpoint",
+      "success": true,
+      "message": "Retrieved leaderboard with 0 entries",
+      "timestamp": "2025-07-14T13:57:14.861008",
+      "details": {}
+    },
+    {
+      "test": "Auth Me (Unauthenticated)",
+      "success": true,
+      "message": "Correctly rejected unauthenticated request",
+      "timestamp": "2025-07-14T13:57:14.908523",
+      "details": {}
+    },
+    {
+      "test": "Auth Login (Invalid Session)",
+      "success": true,
+      "message": "Correctly rejected invalid session",
+      "timestamp": "2025-07-14T13:57:15.047398",
+      "details": {}
+    },
+    {
+      "test": "Error Handling - Non-existent Question",
+      "success": true,
+      "message": "Correctly returned 404 for non-existent question",
+      "timestamp": "2025-07-14T13:57:15.094925",
+      "details": {}
+    },
+    {
+      "test": "Error Handling - Invalid Question Data",
+      "success": true,
+      "message": "Correctly rejected invalid data with status 403",
+      "timestamp": "2025-07-14T13:57:15.142839",
+      "details": {}
+    },
+    {
+      "test": "CORS Headers",
+      "success": false,
+      "message": "No CORS headers found",
+      "timestamp": "2025-07-14T13:57:15.148682",
+      "details": {
+        "response_headers": {
+          "allow": "GET",
+          "content-length": "31",
+          "content-type": "application/json",
+          "date": "Mon, 14 Jul 2025 13:57:14 GMT",
+          "server": "uvicorn",
+          "via": "1.1 google",
+          "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+        }
+      }
+    }
+  ],
+  "timestamp": "2025-07-14T13:57:15.148879",
+  "api_base": "https://d23d4c6e-d2c8-433d-9248-b37efc1907ef.preview.emergentagent.com/api"
+}
