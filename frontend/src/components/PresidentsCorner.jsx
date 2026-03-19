@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
 import { Quote, Crown, Star, Award, BookOpen, Users, Target, Heart } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const PresidentsCorner = () => {
   const [currentQuote, setCurrentQuote] = useState(0);
@@ -32,167 +33,218 @@ const PresidentsCorner = () => {
     return () => clearInterval(interval);
   }, []);
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: "easeOut" },
+    },
+  };
+
   return (
     <section id="presidents-corner" className="py-20 relative overflow-hidden">
-      {/* Highly Animated Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-400 via-pink-500 to-red-500">
-        <div className="absolute inset-0 bg-gradient-to-tr from-blue-400/30 via-indigo-500/20 to-purple-600/30 animate-pulse"></div>
-        <div className="absolute inset-0 bg-gradient-to-bl from-yellow-400/20 via-orange-500/30 to-red-600/20 animate-pulse animation-delay-2000"></div>
-        
-        {/* Floating Elements */}
-        <div className="absolute top-16 left-16 w-24 h-24 bg-gradient-to-br from-yellow-300 to-orange-400 rounded-full opacity-40 animate-bounce animation-delay-1000"></div>
-        <div className="absolute top-32 right-32 w-32 h-32 bg-gradient-to-br from-blue-300 to-purple-500 rounded-full opacity-30 animate-pulse animation-delay-3000"></div>
-        <div className="absolute bottom-24 left-24 w-28 h-28 bg-gradient-to-br from-pink-300 to-red-400 rounded-full opacity-35 animate-bounce animation-delay-4000"></div>
-        <div className="absolute bottom-16 right-16 w-20 h-20 bg-gradient-to-br from-indigo-300 to-purple-400 rounded-full opacity-40 animate-pulse animation-delay-5000"></div>
-        
-        {/* Animated Particles */}
-        <div className="absolute top-20 left-1/4 w-3 h-3 bg-white rounded-full animate-ping opacity-60"></div>
-        <div className="absolute top-40 right-1/4 w-2 h-2 bg-yellow-300 rounded-full animate-ping animation-delay-2000 opacity-70"></div>
-        <div className="absolute bottom-32 left-1/3 w-4 h-4 bg-pink-300 rounded-full animate-ping animation-delay-3000 opacity-65"></div>
-        <div className="absolute bottom-48 right-1/3 w-3 h-3 bg-blue-300 rounded-full animate-ping animation-delay-4000 opacity-60"></div>
-      </div>
-
       <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-16">
+        {/* Header */}
+        <motion.div 
+          className="text-center mb-16"
+          variants={itemVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
           <div className="flex items-center justify-center space-x-3 mb-4">
-            <Crown className="w-8 h-8 text-yellow-300 animate-pulse" />
-            <h2 className="text-4xl font-bold text-white animate-fadeInUp">PRESIDENT'S CORNER</h2>
+            <Crown className="w-8 h-8 text-emerald-400 animate-glow" />
+            <h2 className="heading-lg text-white">PRESIDENT'S CORNER</h2>
           </div>
-          <p className="text-xl text-white/90 max-w-3xl mx-auto animate-fadeInUp animation-delay-500">
+          <p className="text-lg text-slate-300 max-w-3xl mx-auto font-inter">
             A personal message from our founder and president
           </p>
-        </div>
+        </motion.div>
 
-        <div className="max-w-6xl mx-auto">
+        <motion.div 
+          className="max-w-6xl mx-auto"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             
             {/* President's Photo and Info */}
-            <div className="text-center lg:text-left animate-fadeInUp animation-delay-1000">
-              <div className="relative inline-block">
-                <div className="w-80 h-80 rounded-full overflow-hidden shadow-2xl border-8 border-white/20 backdrop-blur-sm transform hover:scale-105 transition-transform duration-500">
-                  <img 
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face"
-                    alt="MD. Mehedi Hasin Anjum"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+            <motion.div 
+              className="text-center lg:text-left"
+              variants={itemVariants}
+            >
+              <div className="relative inline-block lg:w-full">
+                {/* Gradient Ring */}
+                <motion.div 
+                  className="w-80 h-80 mx-auto lg:mx-0 rounded-full bg-gradient-to-br from-emerald-500 to-cyan-400 p-1 shadow-glow-emerald"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  <div className="w-full h-full rounded-full overflow-hidden bg-space-navy">
+                    <img 
+                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face"
+                      alt="MD. Mehedi Hasin Anjum"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </motion.div>
                 
-                {/* Animated Elements around photo */}
-                <div className="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full opacity-80 animate-pulse flex items-center justify-center">
-                  <Crown className="w-8 h-8 text-white" />
-                </div>
-                <div className="absolute -bottom-4 -left-4 w-12 h-12 bg-gradient-to-br from-blue-400 to-purple-600 rounded-full opacity-70 animate-bounce flex items-center justify-center">
-                  <Star className="w-6 h-6 text-white" />
-                </div>
-                <div className="absolute top-1/2 -left-8 w-10 h-10 bg-gradient-to-br from-pink-400 to-red-500 rounded-full opacity-60 animate-pulse flex items-center justify-center">
-                  <Award className="w-5 h-5 text-white" />
-                </div>
-                <div className="absolute top-1/4 -right-8 w-14 h-14 bg-gradient-to-br from-indigo-400 to-purple-600 rounded-full opacity-65 animate-bounce flex items-center justify-center">
-                  <Target className="w-7 h-7 text-white" />
-                </div>
+                {/* Floating Elements */}
+                <motion.div 
+                  className="absolute -top-4 -right-4 w-16 h-16 glass-panel flex items-center justify-center shadow-glow-emerald"
+                  animate={{ y: [-10, 10, -10] }}
+                  transition={{ duration: 4, repeat: Infinity }}
+                >
+                  <Crown className="w-8 h-8 text-emerald-400" />
+                </motion.div>
+                <motion.div 
+                  className="absolute -bottom-4 -left-4 w-12 h-12 glass-panel flex items-center justify-center shadow-glow-aqua"
+                  animate={{ y: [10, -10, 10] }}
+                  transition={{ duration: 5, repeat: Infinity }}
+                >
+                  <Star className="w-6 h-6 text-cyan-400" />
+                </motion.div>
               </div>
               
-              <div className="mt-8 space-y-4">
-                <h3 className="text-3xl font-bold text-white">MD. MEHEDI HASIN ANJUM</h3>
-                <p className="text-xl text-yellow-300 font-semibold">President & Founder</p>
-                <p className="text-lg text-white/90">Bangladesh Olympiadians Hub</p>
+              <motion.div 
+                className="mt-8 space-y-4"
+                variants={itemVariants}
+              >
+                <h3 className="heading-md text-white font-space-grotesk">MD. MEHEDI HASIN ANJUM</h3>
+                <p className="text-xl text-gradient-emerald-cyan font-space-grotesk">President & Founder</p>
+                <p className="text-lg text-slate-300 font-inter">Bangladesh Olympiadians Hub</p>
                 
-                <div className="flex justify-center lg:justify-start space-x-4 pt-4">
-                  <div className="bg-white/10 backdrop-blur-md rounded-lg p-3 border border-white/20">
-                    <div className="flex items-center space-x-2">
-                      <BookOpen className="w-5 h-5 text-blue-300" />
-                      <span className="text-white text-sm">Education Leader</span>
-                    </div>
+                <div className="flex flex-col lg:flex-row space-y-3 lg:space-y-0 lg:space-x-4 pt-4">
+                  <div className="glass-panel p-4 flex items-center space-x-3">
+                    <BookOpen className="w-5 h-5 text-emerald-400" />
+                    <span className="text-slate-200 text-sm font-inter">Education Leader</span>
                   </div>
-                  <div className="bg-white/10 backdrop-blur-md rounded-lg p-3 border border-white/20">
-                    <div className="flex items-center space-x-2">
-                      <Users className="w-5 h-5 text-green-300" />
-                      <span className="text-white text-sm">Youth Mentor</span>
-                    </div>
+                  <div className="glass-panel p-4 flex items-center space-x-3">
+                    <Users className="w-5 h-5 text-cyan-400" />
+                    <span className="text-slate-200 text-sm font-inter">Youth Mentor</span>
                   </div>
                 </div>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
 
-            {/* Animated Quotes Section */}
-            <div className="space-y-8 animate-fadeInUp animation-delay-1500">
-              <Card className="bg-white/10 backdrop-blur-md border-white/20 shadow-2xl">
-                <CardHeader>
-                  <CardTitle className="flex items-center space-x-3 text-white">
-                    <Quote className="w-6 h-6 text-yellow-300" />
-                    <span>Message from the President</span>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="relative">
-                    <div className="absolute -left-4 -top-2 text-6xl text-yellow-300/30 font-serif">"</div>
-                    <p className="text-lg text-white/90 leading-relaxed italic pl-8">
-                      {quotes[currentQuote].text}
-                    </p>
-                    <div className="absolute -right-4 -bottom-2 text-6xl text-yellow-300/30 font-serif">"</div>
+            {/* Message and Achievements Section */}
+            <motion.div 
+              className="space-y-8"
+              variants={containerVariants}
+            >
+              {/* Message Card */}
+              <motion.div 
+                className="glass-panel p-8"
+                variants={itemVariants}
+              >
+                <div className="flex items-center space-x-3 mb-6 pb-6 border-b border-white/10">
+                  <Quote className="w-6 h-6 text-emerald-400" />
+                  <h4 className="heading-sm text-white font-space-grotesk">Message from the President</h4>
+                </div>
+                
+                <motion.div 
+                  className="relative"
+                  key={currentQuote}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <div className="absolute -left-2 -top-2 text-4xl text-emerald-400/20 font-serif">"</div>
+                  <p className="text-base text-slate-300 leading-relaxed italic pl-6 font-inter">
+                    {quotes[currentQuote].text}
+                  </p>
+                  <div className="absolute -right-2 -bottom-2 text-4xl text-emerald-400/20 font-serif">"</div>
+                </motion.div>
+                
+                <div className="flex items-center justify-between pt-6 mt-6 border-t border-white/10">
+                  <div className="flex items-center space-x-2">
+                    <Heart className="w-4 h-4 text-cyan-400" />
+                    <span className="text-sm text-slate-400 font-inter">Category: {quotes[currentQuote].category}</span>
                   </div>
-                  
-                  <div className="flex items-center justify-between pt-4 border-t border-white/20">
-                    <div className="flex items-center space-x-2">
-                      <Heart className="w-4 h-4 text-red-300" />
-                      <span className="text-sm text-white/70">Category: {quotes[currentQuote].category}</span>
-                    </div>
-                    <div className="flex space-x-2">
-                      {quotes.map((_, index) => (
-                        <div
-                          key={index}
-                          className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                            index === currentQuote ? 'bg-yellow-300 w-8' : 'bg-white/30'
-                          }`}
-                        />
-                      ))}
-                    </div>
+                  <div className="flex space-x-2">
+                    {quotes.map((_, index) => (
+                      <motion.div
+                        key={index}
+                        className={`rounded-full transition-all duration-300 ${
+                          index === currentQuote ? 'bg-emerald-400 w-8 h-2' : 'bg-white/20 w-2 h-2'
+                        }`}
+                        whileHover={{ scale: 1.2 }}
+                      />
+                    ))}
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              </motion.div>
 
-              {/* President's Achievements */}
-              <Card className="bg-white/10 backdrop-blur-md border-white/20 shadow-2xl">
-                <CardHeader>
-                  <CardTitle className="flex items-center space-x-3 text-white">
-                    <Award className="w-6 h-6 text-yellow-300" />
-                    <span>Leadership & Achievements</span>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="text-center">
-                      <div className="text-3xl font-bold text-yellow-300 animate-pulse">6000+</div>
-                      <div className="text-sm text-white/80">Students Impacted</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-3xl font-bold text-green-300 animate-pulse animation-delay-1000">50+</div>
-                      <div className="text-sm text-white/80">International Medals</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-3xl font-bold text-blue-300 animate-pulse animation-delay-2000">8</div>
-                      <div className="text-sm text-white/80">Years Leading</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-3xl font-bold text-purple-300 animate-pulse animation-delay-3000">100%</div>
-                      <div className="text-sm text-white/80">Dedication</div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+              {/* Achievements Card */}
+              <motion.div 
+                className="glass-panel p-8"
+                variants={itemVariants}
+              >
+                <div className="flex items-center space-x-3 mb-6 pb-6 border-b border-white/10">
+                  <Award className="w-6 h-6 text-yellow-400" />
+                  <h4 className="heading-sm text-white font-space-grotesk">Leadership & Achievements</h4>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-6">
+                  <motion.div 
+                    className="text-center"
+                    whileHover={{ scale: 1.05 }}
+                  >
+                    <div className="text-3xl font-bold font-space-grotesk text-gradient-emerald-aqua">6000+</div>
+                    <div className="text-sm text-slate-400 font-inter mt-2">Students Impacted</div>
+                  </motion.div>
+                  <motion.div 
+                    className="text-center"
+                    whileHover={{ scale: 1.05 }}
+                  >
+                    <div className="text-3xl font-bold font-space-grotesk text-gradient-emerald-aqua">50+</div>
+                    <div className="text-sm text-slate-400 font-inter mt-2">International Medals</div>
+                  </motion.div>
+                  <motion.div 
+                    className="text-center"
+                    whileHover={{ scale: 1.05 }}
+                  >
+                    <div className="text-3xl font-bold font-space-grotesk text-gradient-emerald-aqua">8</div>
+                    <div className="text-sm text-slate-400 font-inter mt-2">Years Leading</div>
+                  </motion.div>
+                  <motion.div 
+                    className="text-center"
+                    whileHover={{ scale: 1.05 }}
+                  >
+                    <div className="text-3xl font-bold font-space-grotesk text-gradient-emerald-aqua">100%</div>
+                    <div className="text-sm text-slate-400 font-inter mt-2">Dedication</div>
+                  </motion.div>
+                </div>
+              </motion.div>
 
               {/* Call to Action */}
-              <div className="text-center">
+              <motion.div 
+                variants={itemVariants}
+              >
                 <Button 
                   size="lg"
-                  className="bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105 animate-pulse"
+                  className="w-full btn-emerald-glow"
                 >
                   Join Our Journey to Excellence
                 </Button>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

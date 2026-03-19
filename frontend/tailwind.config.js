@@ -7,6 +7,11 @@ module.exports = {
   ],
   theme: {
   	extend: {
+  		fontFamily: {
+  			'space-grotesk': ['Space Grotesk', 'sans-serif'],
+  			'outfit': ['Outfit', 'sans-serif'],
+  			'inter': ['Inter', 'sans-serif'],
+  		},
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
@@ -52,7 +57,11 @@ module.exports = {
   				'3': 'hsl(var(--chart-3))',
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
-  			}
+  			},
+  			'space-navy': '#0A0E17',
+  			'emerald-glow': '#00A859',
+  			'aqua-glow': '#00D9FF',
+  			'yellow-glow': '#FFD700',
   		},
   		keyframes: {
   			'accordion-down': {
@@ -70,12 +79,37 @@ module.exports = {
   				to: {
   					height: '0'
   				}
-  			}
+  			},
+  			'float': {
+  				'0%, 100%': { transform: 'translateY(0px)' },
+  				'50%': { transform: 'translateY(-20px)' },
+  			},
+  			'glow': {
+  				'0%, 100%': { opacity: '0.5' },
+  				'50%': { opacity: '1' },
+  			},
+  			'pulse-glow': {
+  				'0%, 100%': { boxShadow: '0 0 20px rgba(0, 168, 89, 0.4)' },
+  				'50%': { boxShadow: '0 0 40px rgba(0, 168, 89, 0.6)' },
+  			},
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
-  			'accordion-up': 'accordion-up 0.2s ease-out'
-  		}
+  			'accordion-up': 'accordion-up 0.2s ease-out',
+  			'float': 'float 4s ease-in-out infinite',
+  			'glow': 'glow 3s ease-in-out infinite',
+  			'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
+  		},
+  		boxShadow: {
+  			'glass': '0 8px 32px rgba(0, 0, 0, 0.3)',
+  			'glow-emerald': '0 0 20px rgba(0, 168, 89, 0.4)',
+  			'glow-aqua': '0 0 20px rgba(0, 217, 255, 0.4)',
+  			'glow-yellow': '0 0 20px rgba(255, 215, 0, 0.4)',
+  			'glow-purple': '0 0 20px rgba(168, 85, 247, 0.4)',
+  		},
+  		backdropBlur: {
+  			'glass': '10px',
+  		},
   	}
   },
   plugins: [require("tailwindcss-animate")],

@@ -16,7 +16,14 @@ import { Toaster } from "./components/ui/toaster";
 
 const Home = () => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative">
+      {/* Animated Background Orbs */}
+      <div className="animated-bg" />
+      <div className="orb-1" />
+      <div className="orb-2" />
+      <div className="orb-3" />
+      
+      {/* Content */}
       <Header />
       <Hero />
       <SubjectHubs />

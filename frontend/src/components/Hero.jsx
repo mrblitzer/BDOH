@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from './ui/button';
-import { Card } from './ui/card';
-import { ArrowRight, Sparkles, Users, Trophy, BookOpen, Zap, Star } from 'lucide-react';
+import { ArrowRight, Sparkles, Users, Trophy, BookOpen, Zap, Star, Flame, Beaker, Dna } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { stats } from '../data/mockData';
 
 const Hero = () => {
-  const [currentStat, setCurrentStat] = useState(0);
   const [animatedStats, setAnimatedStats] = useState({
     totalMembers: 0,
     totalProblems: 0,
@@ -14,19 +13,11 @@ const Hero = () => {
   });
 
   const statItems = [
-    { key: 'totalMembers', label: 'Active Members', icon: <Users className="w-5 h-5" />, color: 'text-green-600' },
-    { key: 'totalProblems', label: 'Practice Problems', icon: <BookOpen className="w-5 h-5" />, color: 'text-emerald-600' },
-    { key: 'completedCompetitions', label: 'Competitions Held', icon: <Trophy className="w-5 h-5" />, color: 'text-teal-600' },
-    { key: 'successRate', label: 'Success Rate', icon: <Zap className="w-5 h-5" />, color: 'text-green-700', suffix: '%' }
+    { key: 'totalMembers', label: 'Active Members', icon: <Users className="w-5 h-5" />, color: 'text-emerald-400' },
+    { key: 'totalProblems', label: 'Practice Problems', icon: <BookOpen className="w-5 h-5" />, color: 'text-cyan-400' },
+    { key: 'completedCompetitions', label: 'Competitions Held', icon: <Trophy className="w-5 h-5" />, color: 'text-yellow-400' },
+    { key: 'successRate', label: 'Success Rate', icon: <Zap className="w-5 h-5" />, color: 'text-emerald-400', suffix: '%' }
   ];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentStat(prev => (prev + 1) % statItems.length);
-    }, 2000);
-
-    return () => clearInterval(interval);
-  }, []);
 
   useEffect(() => {
     const animateStats = () => {
@@ -52,153 +43,177 @@ const Hero = () => {
     animateStats();
   }, []);
 
-  return (
-    <section id="home" className="relative min-h-screen overflow-hidden">
-      {/* Highly Animated Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-green-400 via-emerald-500 to-teal-600">
-        {/* Animated Gradient Overlays */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-green-300/30 via-emerald-400/20 to-teal-500/30 animate-pulse"></div>
-        <div className="absolute inset-0 bg-gradient-to-bl from-yellow-300/20 via-green-400/30 to-blue-500/20 animate-pulse animation-delay-2000"></div>
-        
-        {/* Floating Animated Elements */}
-        <div className="absolute top-10 left-10 w-32 h-32 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full opacity-40 animate-bounce animation-delay-1000"></div>
-        <div className="absolute top-20 right-20 w-40 h-40 bg-gradient-to-br from-blue-400 to-purple-600 rounded-full opacity-30 animate-pulse animation-delay-3000"></div>
-        <div className="absolute bottom-20 left-20 w-36 h-36 bg-gradient-to-br from-pink-400 to-red-500 rounded-full opacity-35 animate-bounce animation-delay-4000"></div>
-        <div className="absolute bottom-10 right-10 w-28 h-28 bg-gradient-to-br from-indigo-400 to-purple-600 rounded-full opacity-40 animate-pulse animation-delay-5000"></div>
-        
-        {/* Animated Geometric Shapes */}
-        <div className="absolute top-32 left-1/4 w-16 h-16 bg-gradient-to-br from-green-300 to-emerald-500 transform rotate-45 animate-spin-slow opacity-50"></div>
-        <div className="absolute top-64 right-1/3 w-20 h-20 bg-gradient-to-br from-yellow-300 to-orange-500 transform rotate-12 animate-bounce opacity-40"></div>
-        <div className="absolute bottom-32 left-1/3 w-24 h-24 bg-gradient-to-br from-blue-300 to-teal-500 transform rotate-45 animate-pulse opacity-45"></div>
-        
-        {/* Animated Particle Effects */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-16 left-16 w-2 h-2 bg-white rounded-full animate-ping opacity-60"></div>
-          <div className="absolute top-32 right-32 w-3 h-3 bg-yellow-300 rounded-full animate-ping animation-delay-2000 opacity-70"></div>
-          <div className="absolute bottom-48 left-48 w-2 h-2 bg-pink-300 rounded-full animate-ping animation-delay-3000 opacity-65"></div>
-          <div className="absolute bottom-24 right-24 w-3 h-3 bg-blue-300 rounded-full animate-ping animation-delay-4000 opacity-60"></div>
-        </div>
-        
-        {/* Animated Wave Effects */}
-        <div className="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-green-600/40 to-transparent animate-pulse"></div>
-        <div className="absolute top-0 right-0 w-full h-64 bg-gradient-to-b from-emerald-500/30 to-transparent animate-pulse animation-delay-2000"></div>
-      </div>
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      },
+    },
+  };
 
-      <div className="container mx-auto px-4 pt-24 pb-12 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left Content */}
-          <div className="space-y-8">
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: "easeOut" },
+    },
+  };
+
+  return (
+    <section id="home" className="relative min-h-screen pt-24 pb-12 overflow-hidden">
+      <div className="container mx-auto px-4 relative z-10">
+        <motion.div 
+          className="grid lg:grid-cols-2 gap-12 items-center"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          {/* Left Column - Content */}
+          <motion.div className="space-y-8" variants={itemVariants}>
             <div className="space-y-6">
-              <div className="flex items-center space-x-3 text-white animate-fadeInUp">
-                <Sparkles className="w-6 h-6 animate-pulse" />
-                <span className="text-lg font-semibold">Welcome to Excellence</span>
-              </div>
+              {/* Subtitle */}
+              <motion.div 
+                className="flex items-center space-x-3"
+                variants={itemVariants}
+              >
+                <Sparkles className="w-5 h-5 text-cyan-400 animate-glow" />
+                <span className="text-slate-300 font-inter">✨ Welcome to Excellence.</span>
+              </motion.div>
               
-              <h1 className="text-5xl lg:text-6xl font-bold text-white leading-tight animate-fadeInUp animation-delay-500">
-                Master
-                <span className="bg-gradient-to-r from-yellow-300 to-orange-400 bg-clip-text text-transparent animate-pulse"> Academic </span>
-                Olympiads
-              </h1>
+              {/* Headline */}
+              <motion.h1 
+                className="heading-xl leading-tight"
+                variants={itemVariants}
+              >
+                Master <span className="text-gradient-emerald-aqua">Academic Olympiads</span>
+              </motion.h1>
               
-              <p className="text-xl text-white/90 leading-relaxed animate-fadeInUp animation-delay-1000">
+              {/* Description */}
+              <motion.p 
+                className="text-lg text-slate-300 leading-relaxed font-inter"
+                variants={itemVariants}
+              >
                 Join Bangladesh's premier platform for academic olympiad preparation. Practice problems, 
-                compete with peers, and connect with expert mentors in our vibrant WhatsApp communities.
-              </p>
+                compete with peers, and connect with expert mentors in our vibrant communities.
+              </motion.p>
               
-              {/* Founder Section */}
-              <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 animate-fadeInUp animation-delay-1500">
-                <div className="flex items-center space-x-4">
-                  <div className="w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center animate-pulse">
-                    <Star className="w-8 h-8 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-white">Founded by</h3>
-                    <p className="text-2xl font-bold bg-gradient-to-r from-yellow-300 to-orange-400 bg-clip-text text-transparent">
-                      MD. MEHEDI HASIN ANJUM
-                    </p>
-                  </div>
+              {/* Founder Card */}
+              <motion.div 
+                className="glass-panel p-6 flex items-center space-x-4"
+                variants={itemVariants}
+                whileHover={{ scale: 1.02, y: -5 }}
+              >
+                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-emerald-500 to-cyan-400 flex items-center justify-center flex-shrink-0 shadow-glow-emerald">
+                  <Star className="w-8 h-8 text-white" />
                 </div>
-              </div>
+                <div>
+                  <p className="text-sm text-slate-300">Founded by</p>
+                  <p className="text-lg font-bold text-gradient-emerald-cyan">
+                    MD. MEHEDI HASIN ANJUM
+                  </p>
+                </div>
+              </motion.div>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 animate-fadeInUp animation-delay-2000">
+            {/* Buttons */}
+            <motion.div 
+              className="flex flex-col sm:flex-row gap-4"
+              variants={itemVariants}
+            >
               <Button 
                 size="lg" 
-                className="bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105 animate-pulse group"
+                className="btn-emerald-glow group"
               >
                 Start Your Journey
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
               </Button>
               <Button 
-                variant="outline" 
                 size="lg"
-                className="border-white/30 text-white hover:bg-white/10 hover:border-white/50 transition-all duration-300 backdrop-blur-sm"
+                className="btn-ghost-glass"
               >
                 Explore Subjects
               </Button>
-            </div>
+            </motion.div>
 
-            {/* Animated Stats */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 pt-8 animate-fadeInUp animation-delay-2500">
-              {statItems.map((item, index) => (
-                <Card 
+            {/* Stats Grid */}
+            <motion.div 
+              className="grid grid-cols-2 lg:grid-cols-4 gap-4 pt-4"
+              variants={containerVariants}
+            >
+              {statItems.map((item) => (
+                <motion.div
                   key={item.key}
-                  className={`p-4 bg-white/20 backdrop-blur-md border-white/30 shadow-2xl transition-all duration-500 transform hover:scale-105 hover:bg-white/30 ${
-                    currentStat === index ? 'ring-2 ring-yellow-400 shadow-3xl animate-pulse' : ''
-                  }`}
+                  className="glass-panel-hover p-4"
+                  variants={itemVariants}
                 >
-                  <div className="flex items-center space-x-3">
-                    <div className={`${item.color} opacity-80 animate-pulse`}>
+                  <div className="flex flex-col space-y-2">
+                    <div className={`${item.color}`}>
                       {item.icon}
                     </div>
-                    <div>
-                      <p className="text-2xl font-bold text-white animate-pulse">
-                        {animatedStats[item.key]}{item.suffix || ''}
-                      </p>
-                      <p className="text-sm text-white/80">{item.label}</p>
-                    </div>
+                    <p className="text-2xl font-bold font-space-grotesk text-white">
+                      {animatedStats[item.key]}{item.suffix || ''}
+                    </p>
+                    <p className="text-xs text-slate-400">{item.label}</p>
                   </div>
-                </Card>
+                </motion.div>
               ))}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
-          {/* Right Content - Interactive Animation */}
-          <div className="relative animate-fadeInUp animation-delay-1000">
-            <div className="relative w-full h-96 lg:h-[500px]">
-              {/* Main Illustration with enhanced animations */}
-              <div className="absolute inset-0 bg-gradient-to-br from-yellow-400 via-orange-500 to-red-500 rounded-3xl shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-700 animate-pulse"></div>
-              <div className="absolute inset-4 bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl flex items-center justify-center">
-                <div className="text-center space-y-6">
-                  <div className="w-24 h-24 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto shadow-2xl animate-bounce">
-                    <Trophy className="w-12 h-12 text-white" />
-                  </div>
-                  <div className="space-y-2">
-                    <h3 className="text-2xl font-bold text-gray-900">Excellence Awaits</h3>
-                    <p className="text-gray-600">Join thousands of successful olympiadians</p>
-                  </div>
-                  <div className="flex justify-center space-x-4">
-                    <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center animate-pulse">
-                      <span className="text-green-600 font-bold text-2xl">⚡</span>
-                    </div>
-                    <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center animate-pulse animation-delay-1000">
-                      <span className="text-emerald-600 font-bold text-2xl">🧪</span>
-                    </div>
-                    <div className="w-12 h-12 bg-teal-100 rounded-full flex items-center justify-center animate-pulse animation-delay-2000">
-                      <span className="text-teal-600 font-bold text-2xl">🧬</span>
-                    </div>
-                  </div>
-                </div>
+          {/* Right Column - 3D Showcase */}
+          <motion.div 
+            className="relative h-96 lg:h-[500px]"
+            variants={itemVariants}
+          >
+            {/* Glass Panel Container */}
+            <motion.div 
+              className="glass-panel h-full flex flex-col items-center justify-center space-y-8 p-8"
+              whileHover={{ scale: 1.02 }}
+            >
+              {/* 3D Trophy Placeholder with Float Animation */}
+              <motion.div
+                className="w-32 h-32 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-cyan-400/20 flex items-center justify-center shadow-glow-emerald"
+                animate={{ y: [-20, 20, -20] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <Trophy className="w-16 h-16 text-emerald-400" />
+              </motion.div>
+
+              {/* Text */}
+              <div className="text-center space-y-2">
+                <p className="text-xl font-space-grotesk font-bold text-white">Excellence Awaits</p>
+                <p className="text-sm text-slate-300">Join thousands of successful olympiadians</p>
               </div>
-            </div>
 
-            {/* Enhanced Floating Elements */}
-            <div className="absolute -top-4 -right-4 w-20 h-20 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full opacity-80 animate-ping"></div>
-            <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-gradient-to-br from-blue-400 to-purple-600 rounded-full opacity-60 animate-pulse"></div>
-            <div className="absolute top-1/2 -left-8 w-16 h-16 bg-gradient-to-br from-pink-400 to-red-500 rounded-full opacity-70 animate-bounce"></div>
-            <div className="absolute top-1/4 -right-8 w-18 h-18 bg-gradient-to-br from-indigo-400 to-purple-600 rounded-full opacity-60 animate-pulse animation-delay-3000"></div>
-          </div>
-        </div>
+              {/* Icon Pills */}
+              <div className="flex justify-center space-x-4">
+                <motion.div 
+                  className="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center backdrop-blur-xl"
+                  whileHover={{ scale: 1.1, backgroundColor: "rgba(255, 255, 255, 0.1)" }}
+                >
+                  <Flame className="w-6 h-6 text-yellow-400" />
+                </motion.div>
+                <motion.div 
+                  className="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center backdrop-blur-xl"
+                  whileHover={{ scale: 1.1, backgroundColor: "rgba(255, 255, 255, 0.1)" }}
+                >
+                  <Beaker className="w-6 h-6 text-emerald-400" />
+                </motion.div>
+                <motion.div 
+                  className="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center backdrop-blur-xl"
+                  whileHover={{ scale: 1.1, backgroundColor: "rgba(255, 255, 255, 0.1)" }}
+                >
+                  <Dna className="w-6 h-6 text-cyan-400" />
+                </motion.div>
+              </div>
+            </motion.div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );
